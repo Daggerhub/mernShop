@@ -1,5 +1,10 @@
-const express = require('express')
-const product = require('./data/product')
+import express from 'express'
+import connectDB from './config/db.js'
+import product from './data/product.js'
+import dotenv from 'dotenv'
+dotenv.config()
+
+connectDB()
 
 const app = express()
 
@@ -12,8 +17,10 @@ app.get('/api/products',(req,res)=>{
 })
 
 app.get('/api/products/:id',(req,res)=>{
-    const products  = product.find((p) => p._id === req.params.id)
+    const products  = find((p) => p._id === req.params.id)
     res.json(products)
 })
 
-app.listen(5000 , console.log("Server running on port 5000"))
+const PORT = process.env.PORT || 5000
+
+app.listen(5000 , console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`))
