@@ -4,7 +4,7 @@ const router = express.Router()
 import { protect } from '../middlewares/authMiddleware.js' 
 
 
-router.route('/').post(registerUser)
+router.route('/').post(protect , addOrderItems)
 
 
 export default router
