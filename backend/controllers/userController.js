@@ -110,5 +110,13 @@ const registerUser = asyncHandler(async(req , res) => {
         }
 }) 
 
+const getUsers = asyncHandler(async(req , res) => {
 
-export { authUser , getUserProfile , registerUser , updateUserProfile }
+    const users = await User.findBy({})
+    res.json(users)
+
+}) 
+
+
+
+export { authUser , getUserProfile , registerUser , updateUserProfile , getUsers }
