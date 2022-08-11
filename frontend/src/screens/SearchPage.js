@@ -10,13 +10,13 @@ const SearchPage = () => {
   const fetchSearchProduct = async () => {
     setLoading(true);
     const searchQuery = window.location.href.split("=")[1];
-    const searchData = await fetch(
+    const searchDat = await fetch(
       `http://localhost:5000/api/products/search/${searchQuery}`
     );
-    const data = await searchData.json();
+    const data = await searchDat.json();
+    console.log(data)
     setSearchData(data);
     setLoading(false);
-    console.log(data);
   };
 
   useEffect(() => {
@@ -34,14 +34,14 @@ const SearchPage = () => {
       ) : (
         <Col>
           <Row>
-            <Col>{searchData.length} product found</Col>
-          </Row>
-          <Row>
-            {searchData.map((product) => (
-              <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-                <Product product={product} />
-              </Col>
-            ))}
+            {searchData.map((product) => {
+              {
+              if(product !== null)
+              return(
+                <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+                  <Product product={product} />
+                </Col>
+            )}})}
           </Row>
         </Col>
       )}

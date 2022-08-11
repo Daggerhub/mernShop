@@ -5,10 +5,15 @@ const getFiltertedProducts = asyncHandler(async (req, res) => {
   const query = req.params.query;
   let regex = new RegExp(query, "i");
 
-  const pokemon = await Product.find({
+  const data = await Product.find({
     $or: [{ name: regex }, { description: regex }],
   });
-  res.json(pokemon);
+  const filteredData = data.map((d)=>{
+    if(d.countInStock){
+      return d;
+    }
+  })
+  res.json(filteredData)
 });
 
 const getSortByData = asyncHandler(async (req, res) => {
